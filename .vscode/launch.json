@@ -1,0 +1,31 @@
+{
+  "version": "0.1.0",
+  "configurations": [
+    {
+      "name": "Launch macOS Development",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main_development.dart",
+      "args": [
+        "--flavor",
+        "development",
+        "--target",
+        "lib/main_development.dart"
+      ],
+      "deviceId": "macos"
+    },
+    {
+      "name": "Launch macOS Production",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main_production.dart",
+      "args": [
+        "--flavor",
+        "production",
+        "--target",
+        "lib/main_production.dart"
+      ],
+      "deviceId": "macos"
+    }
+  ]
+}
