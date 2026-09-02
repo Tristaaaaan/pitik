@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pitik/src/config/config.dart';
-import 'package:pitik/src/config/config_enum.dart';
+
+import 'src/config/config.dart';
+import 'src/config/config_enum.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
