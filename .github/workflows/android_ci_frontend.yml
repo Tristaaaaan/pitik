@@ -1,0 +1,197 @@
+name: CI Frontend (macOS)
+
+on:
+  pull_request:
+    branches: [main, development] # Includes staging target branch trigger
+    paths: # Optional: Trigger only if relevant files change
+      - "lib/**"
+      - "test/**"
+      - "integration_test/**"
+      - "pubspec.yaml"
+      - ".github/workflows/ci_frontend.yml"
+      - ".github/workflows/auto-rebase-prs.yml"
+
+# Prevent concurrent runs on the same ref. Cancel older runs.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ###########################################################################
+  # Job 1: format-check
+  # - Checks out code, sets up Flutter.
+  # - Installs dependencies, runs build_runner (for consistency).
+  # - Checks code formatting.
+  # - Caches generated files for subsequent jobs.
+  ###########################################################################
+  format-check:
+    name: Format Check (macOS Runner)
+    runs-on: macos-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.44.7"
+          channel: "stable"
+          cache: true
+
+      # Create dummy .env file for CI
+      - name: Create dummy .env file
+        run: |
+          echo "# Dummy file for CI" > .env
+          echo "BASE_API_URL=http://localhost:8000/api/v1" >> .env
+          echo "ENV=test" >> .env
+
+      - name: Install Dependencies
+        run: flutter pub get
+
+      - name: Generate Code (Ensure consistency)
+        run: flutter pub run build_runner build --delete-conflicting-outputs
+
+      - name: Check Formatting
+        run: dart format --output none --set-exit-if-changed lib/ test/
+
+      - name: Cache Generated Files
+        uses: actions/cache@v3
+        with:
+          path: |
+            **/*.freezed.dart
+            **/*.g.dart
+          key: generated-files-${{ github.sha }}
+          restore-keys: |
+            generated-files-${{ github.sha }}
+
+      - name: Debug Info (if failed)
+        if: failure()
+        run: |
+          echo "Job status is ${{ job.status }}"
+          echo "=== DEBUG OUTPUT: format-check failed ==="
+          flutter --version
+          which flutter
+          which dart
+          dart --version
+
+  ###########################################################################
+  # Job 2: flutter-analyze
+  # - Uses cached generated files.
+  # - Runs code analysis with Flutter.
+  ###########################################################################
+  flutter-analyze:
+    name: Analyze (macOS Runner)
+    needs: format-check
+    runs-on: macos-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.44.7"
+          channel: "stable"
+          cache: true
+
+      - name: Install Dependencies
+        run: flutter pub get
+
+      - name: Create dummy .env file
+        run: |
+          echo "# Dummy file for CI" > .env
+          echo "BASE_API_URL=http://localhost:8000/api/v1" >> .env
+          echo "ENV=test" >> .env
+
+      - name: Restore Generated Files
+        id: restore-generated
+        uses: actions/cache@v3
+        with:
+          path: |
+            **/*.freezed.dart
+            **/*.g.dart
+          key: generated-files-${{ github.sha }}
+
+      - name: Generate Code (fallback if cache missed)
+        if: steps.restore-generated.outputs.cache-hit != 'true'
+        run: flutter pub run build_runner build --delete-conflicting-outputs
+
+      - name: Create test environment file
+        run: |
+          echo "BASE_API_URL=https://test-api.example.com" > .env.test
+
+      - name: Flutter Analyze
+        run: flutter analyze
+
+      - name: Debug Info (if failed)
+        if: failure()
+        run: |
+          echo "Job status is ${{ job.status }}"
+          echo "=== DEBUG OUTPUT: flutter-analyze failed ==="
+          flutter --version
+          which flutter
+          which dart
+          dart --version
+
+  ###########################################################################
+  # Job 3: test-coverage
+  # - Uses cached generated files.
+  # - Runs unit and widget tests with coverage.
+  # - Uploads the coverage artifact.
+  ###########################################################################
+  test-coverage:
+    name: Unit/Widget Tests (macOS Runner)
+    needs: flutter-analyze
+    runs-on: macos-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.44.7"
+          channel: "stable"
+          cache: true
+
+      - name: Install Dependencies
+        run: flutter pub get
+
+      - name: Create dummy .env file
+        run: |
+          echo "# Dummy file for CI" > .env
+          echo "BASE_API_URL=http://localhost:8000/api/v1" >> .env
+          echo "ENV=test" >> .env
+
+      - name: Restore Generated Files
+        id: restore-generated
+        uses: actions/cache@v3
+        with:
+          path: |
+            **/*.freezed.dart
+            **/*.g.dart
+          key: generated-files-${{ github.sha }}
+
+      - name: Generate Code (fallback if cache missed)
+        if: steps.restore-generated.outputs.cache-hit != 'true'
+        run: flutter pub run build_runner build --delete-conflicting-outputs
+
+      - name: Run Tests with Coverage
+        run: flutter test --coverage
+
+      - name: Upload Coverage Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage/lcov.info
+          retention-days: 14
+
+      - name: Debug Info (if failed)
+        if: failure()
+        run: |
+          echo "Job status is ${{ job.status }}"
+          echo "=== DEBUG OUTPUT: test-coverage failed ==="
+          flutter --version
+          which flutter
+          which dart
+          dart --version
