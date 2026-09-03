@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pitik/src/core/theme/themes.dart';
 import 'package:window_manager/window_manager.dart';
 
 import 'src/config/config.dart';
@@ -23,7 +25,12 @@ void main() async {
       await windowManager.focus();
     });
   }
-  runApp(const MainApp());
+  runApp(
+    MultiBlocProvider(
+      providers: [BlocProvider(create: (_) => ThemeCubit())],
+      child: MainApp(),
+    ),
+  );
 }
 
 class MainApp extends StatelessWidget {

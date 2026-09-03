@@ -1,6 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pitik/src/core/route/app_routes.dart';
+import 'package:pitik/src/core/theme/themes.dart';
 import 'package:window_manager/window_manager.dart';
 
 import 'src/config/config.dart';
@@ -15,6 +18,7 @@ void main() async {
 
     const windowOptions = WindowOptions(
       minimumSize: Size(1100, 800),
+      maximumSize: Size(1100, 800),
       size: Size(1100, 800),
       center: true,
     );
@@ -25,7 +29,12 @@ void main() async {
     });
   }
 
-  runApp(const MainApp());
+  runApp(
+    MultiBlocProvider(
+      providers: [BlocProvider(create: (_) => ThemeCubit())],
+      child: MainApp(),
+    ),
+  );
 }
 
 class MainApp extends StatelessWidget {
@@ -33,8 +42,18 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(body: Center(child: Text('Hello World Development!'))),
+    return BlocBuilder<ThemeCubit, bool>(
+      builder: (context, isDarkMode) {
+        final theme = isDarkMode ? ThemeCubit.darkMode : ThemeCubit.lightMode;
+
+        return SafeArea(
+          child: MaterialApp.router(
+            theme: theme,
+            routerConfig: appRouter,
+            debugShowCheckedModeBanner: false,
+          ),
+        );
+      },
     );
   }
 }
