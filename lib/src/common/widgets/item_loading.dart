@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pitik/src/common/widgets/skeleton.dart';
-import 'package:pitik/src/core/design/design_tokens.dart';
+
+import '../../core/design/design_tokens.dart';
+import 'skeleton.dart';
 
 class ItemLoading extends StatelessWidget {
   const ItemLoading({super.key});

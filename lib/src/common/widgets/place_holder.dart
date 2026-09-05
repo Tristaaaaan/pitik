@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:pitik/src/features/package/presentation/widget/regular_button.dart';
+
+import '../../features/package/presentation/widget/regular_button.dart';
 
 class DataPlaceHolder extends StatelessWidget {
   final String imagePath;

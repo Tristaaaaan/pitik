@@ -2,15 +2,15 @@ import 'dart:developer' as develoer;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pitik/src/common/widgets/item_loading.dart';
-import 'package:pitik/src/common/widgets/place_holder.dart';
-import 'package:pitik/src/core/animation/app_animations.dart';
-import 'package:pitik/src/features/package/presentation/cubit/package_cubit.dart';
-import 'package:pitik/src/features/package/presentation/cubit/package_state.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../../../common/widgets/item_loading.dart';
+import '../../../../common/widgets/place_holder.dart';
+import '../../../../core/animation/app_animations.dart';
 import '../../../../core/design/design_tokens.dart';
 import '../../entities/package_entity.dart';
+import '../cubit/package_cubit.dart';
+import '../cubit/package_state.dart';
 import '../widget/create_package/create_package_dialog.dart';
 import '../widget/regular_button.dart';
 import '../widget/regular_text.dart';
@@ -164,7 +164,7 @@ class _PackageScreenState extends State<PackageScreen> {
                 builder: (context, state) {
                   return state.maybeWhen(
                     loaded: (data, hasMore) {
-                      if (!hasMore && data!.length > 10) {
+                      if (!hasMore && data!.length > 5) {
                         return SliverToBoxAdapter(
                           child: Padding(
                             padding: EdgeInsets.all(16),

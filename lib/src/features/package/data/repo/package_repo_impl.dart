@@ -1,9 +1,9 @@
-import 'package:pitik/src/core/error/fp.dart';
-import 'package:pitik/src/core/usecase/usecase.dart';
-import 'package:pitik/src/features/package/data/datasource/local/package_local_datasource.dart';
-import 'package:pitik/src/features/package/data/models/package_model.dart';
-import 'package:pitik/src/features/package/domain/repo/package_repo.dart';
-import 'package:pitik/src/features/package/entities/package_entity.dart';
+import '../../../../core/error/fp.dart';
+import '../../../../core/usecase/usecase.dart';
+import '../../domain/repo/package_repo.dart';
+import '../../entities/package_entity.dart';
+import '../datasource/local/package_local_datasource.dart';
+import '../models/package_model.dart';
 
 class PackageRepoImpl implements PackageRepository {
   final PackageLocalDatasourceImpl packageLocalDatasource;
