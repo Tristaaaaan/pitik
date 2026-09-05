@@ -9,11 +9,11 @@ import '../../entities/package_entity.dart';
 import 'package_state.dart';
 
 class PackageCubit extends Cubit<PackageState> {
-  final CreatePackage _createPackageUseCase;
-  final ReadPackage _readPackageUseCase;
+  final CreatePackage createPackageUseCase;
+  final ReadPackage readPackageUseCase;
   PackageCubit({
-    required this._createPackageUseCase,
-    required this._readPackageUseCase,
+    required this.createPackageUseCase,
+    required this.readPackageUseCase,
   }) : super(const PackageState.initial()) {
     fetchInitial();
   }
@@ -57,7 +57,7 @@ class PackageCubit extends Cubit<PackageState> {
 
     _isLoading = true;
 
-    final either = await _readPackageUseCase(
+    final either = await readPackageUseCase(
       ReadPackagesParams(offset: _offset, searchQuery: _searchQuery),
     ).run();
 
@@ -95,7 +95,7 @@ class PackageCubit extends Cubit<PackageState> {
   }
 
   Future<void> createPackage(PackageEntity reagent) async {
-    await _createPackageUseCase(reagent).run();
+    await createPackageUseCase(reagent).run();
     await refresh();
   }
 

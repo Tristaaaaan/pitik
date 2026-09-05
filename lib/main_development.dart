@@ -8,7 +8,12 @@ import 'src/config/config.dart';
 import 'src/config/config_enum.dart';
 import 'src/core/route/app_routes.dart';
 import 'src/core/theme/themes.dart';
+import 'src/features/package/data/datasource/local/package_local_datasource.dart';
+import 'src/features/package/data/repo/package_repo_impl.dart';
+import 'src/features/package/domain/usecase/create_package_usecase.dart';
+import 'src/features/package/domain/usecase/read_package_usecase.dart';
 import 'src/features/package/presentation/cubit/create_package_cubit.dart';
+import 'src/features/package/presentation/cubit/package_cubit.dart';
 import 'src/features/package/presentation/widget/regular_button_cubit.dart';
 
 void main() async {
@@ -37,6 +42,20 @@ void main() async {
         BlocProvider(create: (_) => ThemeCubit()),
         BlocProvider(create: (_) => RegularButtonLoadingCubit()),
         BlocProvider(create: (_) => CreatePackageCubit()),
+        BlocProvider(
+          create: (_) => PackageCubit(
+            createPackageUseCase: CreatePackage(
+              PackageRepoImpl(
+                packageLocalDatasource: PackageLocalDatasourceImpl(),
+              ),
+            ),
+            readPackageUseCase: ReadPackage(
+              PackageRepoImpl(
+                packageLocalDatasource: PackageLocalDatasourceImpl(),
+              ),
+            ),
+          ),
+        ),
       ],
       child: MainApp(),
     ),
