@@ -2,8 +2,9 @@ import 'dart:io';
 
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
-import 'package:pitik/src/features/package/data/models/package_model.dart';
 import 'package:sqflite/sqflite.dart';
+
+import '../../models/package_model.dart';
 
 abstract class PackagesLocalDatasource {
   Future<List<PackageModel>> readPackages(int offset, String? searchQuery);

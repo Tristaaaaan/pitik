@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:pitik/src/core/design/design_tokens.dart';
-import 'package:pitik/src/features/domain/entities/package_entity.dart';
-import 'package:pitik/src/features/package/presentation/widget/regular_text.dart';
+
+import '../../../../core/design/design_tokens.dart';
+import '../../entities/package_entity.dart';
+import '../widget/regular_text.dart';
 
 class PackageScreen extends StatefulWidget {
   const PackageScreen({super.key});

@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
-import 'package:pitik/src/features/package/presentation/screen/package_screen.dart';
+
+import '../../features/package/presentation/screen/package_screen.dart';
 
 final GoRouter appRouter = GoRouter(
   routes: <RouteBase>[

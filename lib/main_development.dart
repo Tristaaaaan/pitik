@@ -2,12 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pitik/src/core/route/app_routes.dart';
-import 'package:pitik/src/core/theme/themes.dart';
 import 'package:window_manager/window_manager.dart';
 
 import 'src/config/config.dart';
 import 'src/config/config_enum.dart';
+import 'src/core/route/app_routes.dart';
+import 'src/core/theme/themes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
