@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pitik/src/core/design/design_tokens.dart';
 
 import '../../../entities/package_entity.dart';
 import '../../cubit/create_package_cubit.dart';
@@ -41,11 +42,8 @@ class CreatePackageDialog extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Expanded(
-                        child: StepProgressIndicator(currentStep: state.step),
-                      ),
                       IconButton(
                         icon: const Icon(Icons.close),
                         onPressed: () => Navigator.of(context).pop(),
@@ -53,7 +51,9 @@ class CreatePackageDialog extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: AppSpacing.md),
+                  StepProgressIndicator(currentStep: state.step),
+                  const SizedBox(height: AppSpacing.md),
                   Expanded(
                     child: AnimatedSwitcher(
                       duration: const Duration(milliseconds: 200),
@@ -85,7 +85,7 @@ class CreatePackageDialog extends StatelessWidget {
                         ),
                         onPressed: () => _onPrimaryAction(context, state),
                         child: Text(
-                          state.isLastStep ? 'Create Package' : 'Next',
+                          state.isLastStep ? 'Create Package' : 'Continue',
                         ),
                       ),
                     ],

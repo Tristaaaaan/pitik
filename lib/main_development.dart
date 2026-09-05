@@ -2,13 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pitik/src/features/package/presentation/cubit/create_package_cubit.dart';
 import 'package:window_manager/window_manager.dart';
 
 import 'src/config/config.dart';
 import 'src/config/config_enum.dart';
 import 'src/core/route/app_routes.dart';
 import 'src/core/theme/themes.dart';
+import 'src/features/package/presentation/cubit/create_package_cubit.dart';
 import 'src/features/package/presentation/widget/regular_button_cubit.dart';
 
 void main() async {
