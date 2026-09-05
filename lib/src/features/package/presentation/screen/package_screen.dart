@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pitik/src/core/design/design_tokens.dart';
+import 'package:pitik/src/features/domain/entities/package_entity.dart';
 import 'package:pitik/src/features/package/presentation/widget/regular_text.dart';
 
 class PackageScreen extends StatefulWidget {
@@ -28,38 +29,8 @@ class _PackageScreenState extends State<PackageScreen> {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(AppRadius.sm),
                   ),
-                  child: Row(
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-
-                        children: [
-                          RegularText(
-                            text: "Package $index",
-                            fontSize: AppTextSize.md,
-                          ),
-                          SizedBox(height: AppSpacing.sm),
-                          RegularText(
-                            text: "What's included",
-                            fontSize: AppTextSize.sm,
-                          ),
-                          SizedBox(height: AppSpacing.sm),
-
-                          Row(
-                            children: [
-                              Icon(Icons.check, size: AppIconSize.md),
-                              SizedBox(width: AppSpacing.sm),
-                              RegularText(
-                                text: "15 minutes photo session",
-                                fontSize: AppTextSize.sm,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      Spacer(),
-                      RegularText(text: "₱4,323", fontSize: AppTextSize.md),
-                    ],
+                  child: PackageContainer(
+                    package: PackageEntity(title: "Package", price: 432),
                   ),
                 ),
                 itemCount: 10,
@@ -68,6 +39,46 @@ class _PackageScreenState extends State<PackageScreen> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class PackageContainer extends StatelessWidget {
+  final PackageEntity package;
+
+  const PackageContainer({super.key, required this.package});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+
+          children: [
+            RegularText(
+              text: "Package ${package.title}",
+              fontSize: AppTextSize.md,
+            ),
+            SizedBox(height: AppSpacing.sm),
+            RegularText(text: "What's included", fontSize: AppTextSize.sm),
+            SizedBox(height: AppSpacing.sm),
+
+            Row(
+              children: [
+                Icon(Icons.check, size: AppIconSize.md),
+                SizedBox(width: AppSpacing.sm),
+                RegularText(
+                  text: "15 minutes photo session",
+                  fontSize: AppTextSize.sm,
+                ),
+              ],
+            ),
+          ],
+        ),
+        Spacer(),
+        RegularText(text: "₱4,323", fontSize: AppTextSize.md),
+      ],
     );
   }
 }
