@@ -2,6 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pitik/src/features/package/data/datasource/local/package_local_datasource.dart';
+import 'package:pitik/src/features/package/data/repo/package_repo_impl.dart';
+import 'package:pitik/src/features/package/domain/usecase/create_package_usecase.dart';
+import 'package:pitik/src/features/package/domain/usecase/read_package_usecase.dart';
+import 'package:pitik/src/features/package/presentation/cubit/package_cubit.dart';
 import 'package:window_manager/window_manager.dart';
 
 import 'src/config/config.dart';
@@ -37,6 +42,20 @@ void main() async {
         BlocProvider(create: (_) => ThemeCubit()),
         BlocProvider(create: (_) => RegularButtonLoadingCubit()),
         BlocProvider(create: (_) => CreatePackageCubit()),
+        BlocProvider(
+          create: (_) => PackageCubit(
+            createPackageUseCase: CreatePackage(
+              PackageRepoImpl(
+                packageLocalDatasource: PackageLocalDatasourceImpl(),
+              ),
+            ),
+            readPackageUseCase: ReadPackage(
+              PackageRepoImpl(
+                packageLocalDatasource: PackageLocalDatasourceImpl(),
+              ),
+            ),
+          ),
+        ),
       ],
       child: MainApp(),
     ),

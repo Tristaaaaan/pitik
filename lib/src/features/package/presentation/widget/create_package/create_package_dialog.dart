@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pitik/src/core/design/design_tokens.dart';
 
+import '../../../../../core/design/design_tokens.dart';
 import '../../../entities/package_entity.dart';
 import '../../cubit/create_package_cubit.dart';
 import '../../cubit/create_package_state.dart';
