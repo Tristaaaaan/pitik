@@ -129,6 +129,49 @@ class AppTextSize {
   static const xxxl12 = 228.0;
 }
 
+class AppIconSize {
+  // Extra small
+  static const xxxxxxs = 2.0;
+
+  static const xxxxxs = 4.0;
+
+  static const xxxxs = 6.0;
+
+  static const xxxs = 8.0;
+
+  static const xxs = 10.0;
+
+  static const xs = 12.0;
+
+  // Small
+  static const sm = 14.0;
+
+  // Medium
+  static const md = 16.0;
+  static const md1 = 18.0;
+
+  // Large
+  static const lg = 20.0;
+
+  // Extra large
+  static const xl = 24.0;
+
+  // Extra extra large
+  static const xxl = 32.0;
+  static const xxl1 = 36.0;
+  static const xxl2 = 40.0;
+  static const xxl3 = 44.0;
+
+  // Huge / display
+  static const xxxl = 48.0;
+  static const xxxl1 = 52.0;
+  static const xxxl2 = 56.0;
+  static const xxxl3 = 60.0;
+  static const xxxl4 = 64.0;
+  static const xxxl8 = 150.0;
+  static const xxxl12 = 228.0;
+}
+
 /// -----------------------------
 /// FONT WEIGHTS
 /// -----------------------------

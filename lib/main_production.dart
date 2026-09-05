@@ -1,10 +1,12 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:window_manager/window_manager.dart';
 
 import 'src/config/config.dart';
 import 'src/config/config_enum.dart';
+import 'src/core/theme/themes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,7 +25,12 @@ void main() async {
       await windowManager.focus();
     });
   }
-  runApp(const MainApp());
+  runApp(
+    MultiBlocProvider(
+      providers: [BlocProvider(create: (_) => ThemeCubit())],
+      child: MainApp(),
+    ),
+  );
 }
 
 class MainApp extends StatelessWidget {
