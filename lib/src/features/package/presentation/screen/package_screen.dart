@@ -1,7 +1,11 @@
+import 'dart:developer' as develoer;
+
 import 'package:flutter/material.dart';
 
 import '../../../../core/design/design_tokens.dart';
 import '../../entities/package_entity.dart';
+import '../widget/create_package/create_package_dialog.dart';
+import '../widget/regular_button.dart';
 import '../widget/regular_text.dart';
 
 class PackageScreen extends StatefulWidget {
@@ -20,7 +24,31 @@ class _PackageScreenState extends State<PackageScreen> {
           SliverMainAxisGroup(
             slivers: [
               SliverToBoxAdapter(
-                child: RegularText(text: "Packages", fontSize: AppTextSize.xl),
+                child: Row(
+                  children: [
+                    RegularText(text: "Packages", fontSize: AppTextSize.xl),
+                    SizedBox(width: 25),
+                    RegularButton(
+                      onTap: () async {
+                        final newPackage = await showCreatePackageDialog(
+                          context,
+                        );
+                        develoer.log("newPackage: $newPackage");
+
+                        if (newPackage != null) {
+                          // context.read<PackageCubit>().createPackage(
+                          //   newPackage,
+                          // );
+                        }
+                      },
+                      text: "New",
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                      textColor: Theme.of(context).colorScheme.surface,
+                      buttonKey: "newPackage",
+                      width: 125,
+                    ),
+                  ],
+                ),
               ),
               SliverList.builder(
                 itemBuilder: (context, index) => Container(

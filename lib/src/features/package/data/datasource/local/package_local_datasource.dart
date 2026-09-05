@@ -84,4 +84,9 @@ class PackageLocalDatasourceImpl implements PackagesLocalDatasource {
 
     return result.map((row) => PackageModel.fromMap(row)).toList();
   }
+
+  Future<void> createPackage(PackageModel package) async {
+    final database = await db;
+    await database.insert('packages', package.toMap());
+  }
 }
