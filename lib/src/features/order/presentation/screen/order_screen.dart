@@ -89,7 +89,6 @@ class OrderScreen extends StatelessWidget {
                       //             .fold<double>(0, (sum, a) => sum + a.price);
                       //         final subtotal = packagesTotal + addOnsTotal;
 
-                      //         // TODO: replace with real discount logic
                       //         const double discount = 0;
                       //         final total = subtotal - discount;
 
@@ -118,7 +117,7 @@ class OrderScreen extends StatelessWidget {
                           (sum, p) => sum + p.price,
                         );
 
-                        const double discount = 0; // TODO: real discount logic
+                        const double discount = 0;
                         final total = subtotal - discount;
 
                         return OrderDetailsContainer(
