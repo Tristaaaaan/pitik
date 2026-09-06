@@ -129,6 +129,33 @@ class AppTextSize {
   static const xxxl12 = 228.0;
 }
 
+class AppColors {
+  AppColors._();
+
+  // Brand / primary
+  static const Color primary = Color(0xFF2D6A4F);
+  static const Color primaryLight = Color(0xFF52B788);
+  static const Color primaryDark = Color(0xFF1B4332);
+
+  // Surfaces
+  static const Color background = Color(0xFFFAFAFA);
+  static const Color surface = Color(0xFFFFFFFF);
+
+  // Text
+  static const Color textPrimary = Color(0xFF1A1A1A);
+  static const Color textSecondary = Color(0xFF6B6B6B);
+  static const Color white = Color(0xFFFFFFFF);
+
+  // Borders / dividers
+  static const Color border = Color(0xFFE0E0E0);
+  static const Color divider = Color(0xFFEEEEEE);
+
+  // Status
+  static const Color error = Color(0xFFD32F2F);
+  static const Color success = Color(0xFF2E7D32);
+  static const Color warning = Color(0xFFED6C02);
+}
+
 class AppIconSize {
   // Extra small
   static const xxxxxxs = 2.0;
