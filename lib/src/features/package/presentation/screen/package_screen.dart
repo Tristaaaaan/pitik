@@ -8,12 +8,12 @@ import '../../../../common/widgets/item_loading.dart';
 import '../../../../common/widgets/place_holder.dart';
 import '../../../../core/animation/app_animations.dart';
 import '../../../../core/design/design_tokens.dart';
-import '../../entities/package_entity.dart';
 import '../cubit/package_cubit.dart';
 import '../cubit/package_state.dart';
 import '../widget/create_package/create_package_dialog.dart';
 import '../widget/regular_button.dart';
 import '../widget/regular_text.dart';
+import '../widget/select_package/package_container.dart';
 
 class PackageScreen extends StatefulWidget {
   const PackageScreen({super.key});
@@ -159,7 +159,6 @@ class _PackageScreenState extends State<PackageScreen> {
                   );
                 },
               ),
-
               BlocBuilder<PackageCubit, PackageState>(
                 builder: (context, state) {
                   return state.maybeWhen(
@@ -188,46 +187,6 @@ class _PackageScreenState extends State<PackageScreen> {
           ),
         ],
       ),
-    );
-  }
-}
-
-class PackageContainer extends StatelessWidget {
-  final PackageEntity package;
-
-  const PackageContainer({super.key, required this.package});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-
-          children: [
-            RegularText(
-              text: "Package ${package.title}",
-              fontSize: AppTextSize.md,
-            ),
-            SizedBox(height: AppSpacing.sm),
-            RegularText(text: "What's included", fontSize: AppTextSize.sm),
-            SizedBox(height: AppSpacing.sm),
-
-            Row(
-              children: [
-                Icon(Icons.check, size: AppIconSize.md),
-                SizedBox(width: AppSpacing.sm),
-                RegularText(
-                  text: "15 minutes photo session",
-                  fontSize: AppTextSize.sm,
-                ),
-              ],
-            ),
-          ],
-        ),
-        Spacer(),
-        RegularText(text: "₱4,323", fontSize: AppTextSize.md),
-      ],
     );
   }
 }

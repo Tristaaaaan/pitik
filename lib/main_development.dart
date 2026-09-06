@@ -15,6 +15,7 @@ import 'src/features/package/domain/usecase/read_package_usecase.dart';
 import 'src/features/package/presentation/cubit/create_package_cubit.dart';
 import 'src/features/package/presentation/cubit/package_cubit.dart';
 import 'src/features/package/presentation/widget/regular_button_cubit.dart';
+import 'src/features/package/presentation/widget/select_package/package_selection_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,9 +25,9 @@ void main() async {
     await windowManager.ensureInitialized();
 
     const windowOptions = WindowOptions(
-      minimumSize: Size(1100, 800),
-      maximumSize: Size(1100, 800),
-      size: Size(1100, 800),
+      minimumSize: Size(1080, 720),
+      maximumSize: Size(1080, 720),
+      size: Size(1080, 720),
       center: true,
     );
 
@@ -42,6 +43,7 @@ void main() async {
         BlocProvider(create: (_) => ThemeCubit()),
         BlocProvider(create: (_) => RegularButtonLoadingCubit()),
         BlocProvider(create: (_) => CreatePackageCubit()),
+        BlocProvider(create: (_) => PackageSelectionCubit()),
         BlocProvider(
           create: (_) => PackageCubit(
             createPackageUseCase: CreatePackage(
