@@ -9,4 +9,6 @@ abstract class PackageRepository {
   TaskEither<Failure, List<PackageEntity>> readPackage(
     ReadPackagesParams params,
   );
+
+  TaskEither<Failure, Unit> deletePackage(String packageId);
 }

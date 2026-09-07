@@ -7,7 +7,9 @@ import 'package:sqflite/sqflite.dart';
 import '../../models/package_model.dart';
 
 abstract class PackagesLocalDatasource {
+  Future<void> createPackage(PackageModel package);
   Future<List<PackageModel>> readPackages(int offset, String? searchQuery);
+  Future<void> deletePackage(String packageId);
 }
 
 class PackageLocalDatasourceImpl implements PackagesLocalDatasource {
@@ -85,8 +87,21 @@ class PackageLocalDatasourceImpl implements PackagesLocalDatasource {
     return result.map((row) => PackageModel.fromMap(row)).toList();
   }
 
+  @override
   Future<void> createPackage(PackageModel package) async {
     final database = await db;
     await database.insert('packages', package.toMap());
+  }
+
+  @override
+  Future<void> deletePackage(String packageId) async {
+    final database = await db;
+
+    await database.update(
+      'packages',
+      {'isDeleted': 1},
+      where: 'id = ?',
+      whereArgs: [packageId],
+    );
   }
 }
