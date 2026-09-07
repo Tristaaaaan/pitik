@@ -79,7 +79,7 @@ class PackageLocalDatasourceImpl implements PackagesLocalDatasource {
       'packages',
       where: where.join(' AND '),
       whereArgs: args.isEmpty ? null : args,
-      orderBy: 'title ASC',
+      orderBy: 'dateAdded DESC',
       limit: pageSize,
       offset: offset,
     );

@@ -31,31 +31,34 @@ class _PackageScreenState extends State<PackageScreen> {
           SliverMainAxisGroup(
             slivers: [
               SliverToBoxAdapter(
-                child: Row(
-                  children: [
-                    RegularText(text: "Packages", fontSize: AppTextSize.xl),
-                    SizedBox(width: 25),
-                    RegularButton(
-                      onTap: () async {
-                        final newPackage = await showCreatePackageDialog(
-                          context,
-                        );
-                        develoer.log("newPackage: $newPackage");
-
-                        if (newPackage != null) {
-                          if (!context.mounted) return;
-                          context.read<PackageCubit>().createPackage(
-                            newPackage,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  child: Row(
+                    children: [
+                      RegularText(text: "Packages", fontSize: AppTextSize.xl),
+                      SizedBox(width: 25),
+                      RegularButton(
+                        onTap: () async {
+                          final newPackage = await showCreatePackageDialog(
+                            context,
                           );
-                        }
-                      },
-                      text: "New",
-                      backgroundColor: Theme.of(context).colorScheme.primary,
-                      textColor: Theme.of(context).colorScheme.surface,
-                      buttonKey: "newPackage",
-                      width: 125,
-                    ),
-                  ],
+                          develoer.log("newPackage: $newPackage");
+
+                          if (newPackage != null) {
+                            if (!context.mounted) return;
+                            context.read<PackageCubit>().createPackage(
+                              newPackage,
+                            );
+                          }
+                        },
+                        text: "New",
+                        backgroundColor: Theme.of(context).colorScheme.primary,
+                        textColor: Theme.of(context).colorScheme.surface,
+                        buttonKey: "newPackage",
+                        width: 125,
+                      ),
+                    ],
+                  ),
                 ),
               ),
               BlocBuilder<PackageCubit, PackageState>(
@@ -141,8 +144,12 @@ class _PackageScreenState extends State<PackageScreen> {
                             final package = data[index];
 
                             return Container(
-                              padding: const EdgeInsets.all(AppSpacing.md),
-                              margin: const EdgeInsets.all(AppSpacing.md),
+                              padding: const EdgeInsets.all(AppSpacing.xs),
+                              margin: const EdgeInsets.only(
+                                bottom: AppSpacing.xs,
+                                right: AppSpacing.md,
+                                left: AppSpacing.xs,
+                              ),
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(

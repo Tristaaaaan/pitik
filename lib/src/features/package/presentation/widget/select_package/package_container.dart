@@ -39,6 +39,7 @@ class PackageContainer extends StatelessWidget {
               ),
             ),
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,33 +49,62 @@ class PackageContainer extends StatelessWidget {
                       fontSize: AppTextSize.md,
                       color: textColor,
                     ),
-                    SizedBox(height: AppSpacing.sm),
+                    if (package.branding != null) ...[
+                      RegularText(
+                        text: package.branding!,
+                        fontSize: AppTextSize.sm,
+                        color: textColor,
+                      ),
+                      SizedBox(height: AppSpacing.sm),
+                    ],
+                    if (package.description != null) ...[
+                      RegularText(
+                        text: package.description!,
+                        fontSize: AppTextSize.sm,
+                        color: textColor,
+                      ),
+                      SizedBox(height: AppSpacing.sm),
+                    ],
+
+                    if (package.note != null) ...[
+                      RegularText(
+                        text: package.note!,
+                        fontSize: AppTextSize.sm,
+                        color: textColor,
+                      ),
+                      SizedBox(height: AppSpacing.sm),
+                    ],
                     RegularText(
                       text: "What's included",
                       fontSize: AppTextSize.sm,
                       color: textColor,
                     ),
                     SizedBox(height: AppSpacing.sm),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.check,
-                          size: AppIconSize.md,
-                          color: textColor,
-                        ),
-                        SizedBox(width: AppSpacing.sm),
-                        RegularText(
-                          text: "15 minutes photo session",
-                          fontSize: AppTextSize.sm,
-                          color: textColor,
-                        ),
-                      ],
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: package.inclusion.map((inclusion) {
+                        return Row(
+                          children: [
+                            Icon(
+                              Icons.check,
+                              size: AppIconSize.md,
+                              color: textColor,
+                            ),
+                            SizedBox(width: AppSpacing.sm),
+                            RegularText(
+                              text: inclusion,
+                              fontSize: AppTextSize.sm,
+                              color: textColor,
+                            ),
+                          ],
+                        );
+                      }).toList(),
                     ),
                   ],
                 ),
                 Spacer(),
                 RegularText(
-                  text: "₱4,323",
+                  text: "₱${package.price.toStringAsFixed(2)}",
                   fontSize: AppTextSize.md,
                   color: textColor,
                 ),
