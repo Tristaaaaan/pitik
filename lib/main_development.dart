@@ -11,6 +11,7 @@ import 'src/core/theme/themes.dart';
 import 'src/features/package/data/datasource/local/package_local_datasource.dart';
 import 'src/features/package/data/repo/package_repo_impl.dart';
 import 'src/features/package/domain/usecase/create_package_usecase.dart';
+import 'src/features/package/domain/usecase/delete_package_usecase.dart';
 import 'src/features/package/domain/usecase/read_package_usecase.dart';
 import 'src/features/package/presentation/cubit/create_package_cubit.dart';
 import 'src/features/package/presentation/cubit/package_cubit.dart';
@@ -52,6 +53,12 @@ void main() async {
               ),
             ),
             readPackageUseCase: ReadPackage(
+              PackageRepoImpl(
+                packageLocalDatasource: PackageLocalDatasourceImpl(),
+              ),
+            ),
+
+            deletePackageUseCase: DeletePackage(
               PackageRepoImpl(
                 packageLocalDatasource: PackageLocalDatasourceImpl(),
               ),

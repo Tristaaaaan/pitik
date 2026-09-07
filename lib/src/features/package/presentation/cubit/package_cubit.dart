@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/usecase/usecase.dart';
 import '../../domain/usecase/create_package_usecase.dart';
+import '../../domain/usecase/delete_package_usecase.dart';
 import '../../domain/usecase/read_package_usecase.dart';
 import '../../entities/package_entity.dart';
 import 'package_state.dart';
@@ -11,9 +12,11 @@ import 'package_state.dart';
 class PackageCubit extends Cubit<PackageState> {
   final CreatePackage createPackageUseCase;
   final ReadPackage readPackageUseCase;
+  final DeletePackage deletePackageUseCase;
   PackageCubit({
     required this.createPackageUseCase,
     required this.readPackageUseCase,
+    required this.deletePackageUseCase,
   }) : super(const PackageState.initial()) {
     fetchInitial();
   }
@@ -96,6 +99,11 @@ class PackageCubit extends Cubit<PackageState> {
 
   Future<void> createPackage(PackageEntity reagent) async {
     await createPackageUseCase(reagent).run();
+    await refresh();
+  }
+
+  Future<void> deletePackage(String id) async {
+    await deletePackageUseCase(id).run();
     await refresh();
   }
 

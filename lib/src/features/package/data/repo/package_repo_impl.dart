@@ -32,4 +32,12 @@ class PackageRepoImpl implements PackageRepository {
       return result.map((e) => e.toEntity()).toList();
     }, (e, _) => CacheFailure(e.toString()));
   }
+
+  @override
+  TaskEither<Failure, Unit> deletePackage(String packageId) {
+    return TaskEither.tryCatch(() async {
+      await packageLocalDatasource.deletePackage(packageId);
+      return unit;
+    }, (e, _) => CacheFailure(e.toString()));
+  }
 }

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/design/design_tokens.dart';
 import '../../../entities/package_entity.dart';
+import '../../cubit/package_cubit.dart';
 import '../regular_text.dart';
 import 'package_selection_cubit.dart';
 import 'package_selection_state.dart';
@@ -23,6 +24,9 @@ class PackageContainer extends StatelessWidget {
         final textColor = isSelected ? Colors.white : Colors.black;
 
         return GestureDetector(
+          onLongPress: () {
+            context.read<PackageCubit>().deletePackage(package.id!);
+          },
           onTap: () =>
               context.read<PackageSelectionCubit>().toggleSelection(package),
           child: Container(
