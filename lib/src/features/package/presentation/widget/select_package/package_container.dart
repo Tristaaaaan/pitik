@@ -41,66 +41,132 @@ class PackageContainer extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    RegularText(
-                      text: "Package ${package.title}",
-                      fontSize: AppTextSize.md,
-                      color: textColor,
-                    ),
-                    if (package.branding != null) ...[
+                Expanded(
+                  // <-- add this
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
                       RegularText(
-                        text: package.branding!,
+                        text: "Package ${package.title}",
+                        fontSize: AppTextSize.md,
+                        color: textColor,
+                      ),
+                      if (package.branding != null) ...[
+                        RegularText(
+                          text: package.branding!,
+                          fontSize: AppTextSize.sm,
+                          color: textColor,
+                        ),
+                        SizedBox(height: AppSpacing.sm),
+                      ],
+                      if (package.description != null) ...[
+                        RegularText(
+                          text: package.description!,
+                          fontSize: AppTextSize.sm,
+                          color: textColor,
+                        ),
+                        SizedBox(height: AppSpacing.sm),
+                      ],
+                      ConstrainedBox(
+                        constraints: const BoxConstraints(minHeight: 100),
+                        child: Container(
+                          padding: EdgeInsets.all(AppSpacing.md),
+                          margin: const EdgeInsets.only(bottom: AppSpacing.sm),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    RegularText(
+                                      text:
+                                          "AHAHH ahh hdahd hhk shdkshjk lore m dhsajkdhajks  hjkdsahdjk ahsjk dsahdjkshdjkshdjkshdjksdsd",
+                                      fontSize: 13,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      // if (package.note != null) ...[
+                      //   Expanded(
+                      //     child: IntrinsicHeight(
+                      //       child: Container(
+                      //         width: double.infinity,
+                      //         padding: EdgeInsets.all(AppSpacing.sm),
+                      //         decoration: BoxDecoration(
+                      //           border: Border.all(color: textColor),
+                      //           borderRadius: BorderRadius.circular(
+                      //             AppRadius.md,
+                      //           ),
+                      //         ),
+                      //         child: Expanded(
+                      //           child: Row(
+                      //             crossAxisAlignment: CrossAxisAlignment.start,
+                      //             children: [
+                      //               Icon(
+                      //                 Icons.info_outline,
+                      //                 size: AppIconSize.md,
+                      //                 color: textColor,
+                      //               ),
+                      //               SizedBox(width: AppSpacing.sm),
+                      //               Text(
+                      //                 softWrap: true,
+                      //                 overflow: TextOverflow.visible,
+                      //                 "i have nothing else to say but say thank you and good bye cruel world typing this in dart language",
+                      //                 style: Theme.of(
+                      //                   context,
+                      //                 ).textTheme.bodyMedium,
+                      //               ),
+                      //               // Expanded(
+                      //               //   child: RegularText(
+                      //               //     text: package.note!,
+                      //               //     fontSize: AppTextSize.sm,
+                      //               //     color: textColor,
+                      //               //   ),
+                      //               // ),
+                      //             ],
+                      //           ),
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ),
+                      //   SizedBox(height: AppSpacing.sm),
+                      // ],
+                      RegularText(
+                        text: "What's included",
                         fontSize: AppTextSize.sm,
                         color: textColor,
                       ),
                       SizedBox(height: AppSpacing.sm),
-                    ],
-                    if (package.description != null) ...[
-                      RegularText(
-                        text: package.description!,
-                        fontSize: AppTextSize.sm,
-                        color: textColor,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: package.inclusion.map((inclusion) {
+                          return Row(
+                            children: [
+                              Icon(
+                                Icons.check,
+                                size: AppIconSize.md,
+                                color: textColor,
+                              ),
+                              SizedBox(width: AppSpacing.sm),
+                              Expanded(
+                                // bonus: same wrapping risk for long inclusion text
+                                child: RegularText(
+                                  text: inclusion,
+                                  fontSize: AppTextSize.sm,
+                                  color: textColor,
+                                ),
+                              ),
+                            ],
+                          );
+                        }).toList(),
                       ),
-                      SizedBox(height: AppSpacing.sm),
                     ],
-
-                    if (package.note != null) ...[
-                      RegularText(
-                        text: package.note!,
-                        fontSize: AppTextSize.sm,
-                        color: textColor,
-                      ),
-                      SizedBox(height: AppSpacing.sm),
-                    ],
-                    RegularText(
-                      text: "What's included",
-                      fontSize: AppTextSize.sm,
-                      color: textColor,
-                    ),
-                    SizedBox(height: AppSpacing.sm),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: package.inclusion.map((inclusion) {
-                        return Row(
-                          children: [
-                            Icon(
-                              Icons.check,
-                              size: AppIconSize.md,
-                              color: textColor,
-                            ),
-                            SizedBox(width: AppSpacing.sm),
-                            RegularText(
-                              text: inclusion,
-                              fontSize: AppTextSize.sm,
-                              color: textColor,
-                            ),
-                          ],
-                        );
-                      }).toList(),
-                    ),
-                  ],
+                  ),
                 ),
                 Spacer(),
                 RegularText(
