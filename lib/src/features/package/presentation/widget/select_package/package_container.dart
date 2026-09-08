@@ -46,11 +46,23 @@ class PackageContainer extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      RegularText(
-                        text: "Package ${package.title}",
-                        fontSize: AppTextSize.md,
-                        color: textColor,
+                      Row(
+                        children: [
+                          RegularText(
+                            text: "Package ${package.title}",
+                            fontSize: AppTextSize.md,
+                            color: textColor,
+                          ),
+                          Spacer(),
+                          Spacer(),
+                          RegularText(
+                            text: "₱${package.price.toStringAsFixed(2)}",
+                            fontSize: AppTextSize.md,
+                            color: textColor,
+                          ),
+                        ],
                       ),
+                      SizedBox(height: AppSpacing.sm),
                       if (package.branding != null) ...[
                         RegularText(
                           text: package.branding!,
@@ -63,32 +75,33 @@ class PackageContainer extends StatelessWidget {
                         RegularText(
                           text: package.description!,
                           fontSize: AppTextSize.sm,
-                          color: textColor,
+                          color: isSelected ? Colors.black : Colors.black,
                         ),
                         SizedBox(height: AppSpacing.sm),
                       ],
-                      ConstrainedBox(
-                        constraints: const BoxConstraints(minHeight: 100),
-                        child: Container(
-                          padding: EdgeInsets.all(AppSpacing.md),
-                          margin: const EdgeInsets.only(bottom: AppSpacing.sm),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    RegularText(
-                                      text:
-                                          "AHAHH ahh hdahd hhk shdkshjk lore m dhsajkdhajks  hjkdsahdjk ahsjk dsahdjkshdjkshdjkshdjksdsd",
-                                      fontSize: 13,
-                                    ),
-                                  ],
-                                ),
+                      Container(
+                        padding: EdgeInsets.all(AppSpacing.md),
+                        color: Colors.grey.shade200,
+                        margin: const EdgeInsets.only(bottom: AppSpacing.sm),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  RegularText(
+                                    text:
+                                        "AHAHH ahh hdahd hhk shdkshjk lore m dhsajkdhajks  hjkdsahdjk ahsjk dsahdjkshdjkshdjkshdjksdsd",
+                                    fontSize: 13,
+                                    color: isSelected
+                                        ? Colors.white
+                                        : Colors.black,
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                       // if (package.note != null) ...[
@@ -167,12 +180,6 @@ class PackageContainer extends StatelessWidget {
                       ),
                     ],
                   ),
-                ),
-                Spacer(),
-                RegularText(
-                  text: "₱${package.price.toStringAsFixed(2)}",
-                  fontSize: AppTextSize.md,
-                  color: textColor,
                 ),
               ],
             ),
