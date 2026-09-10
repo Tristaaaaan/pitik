@@ -32,7 +32,12 @@ class OrderItemTile extends StatelessWidget {
           Expanded(
             child: RegularText(text: title, fontSize: AppTextSize.sm),
           ),
-          RegularText(text: formatCurrency(price), fontSize: AppTextSize.sm),
+          price == 0
+              ? Text("Free")
+              : RegularText(
+                  text: formatCurrency(price),
+                  fontSize: AppTextSize.sm,
+                ),
           SizedBox(width: AppSpacing.sm),
           IconButton(
             icon: Icon(

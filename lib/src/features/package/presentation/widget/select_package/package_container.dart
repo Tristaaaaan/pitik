@@ -55,11 +55,13 @@ class PackageContainer extends StatelessWidget {
                           ),
                           Spacer(),
                           Spacer(),
-                          RegularText(
-                            text: formatCurrency(package.price),
-                            fontSize: AppTextSize.md,
-                            color: textColor,
-                          ),
+                          package.price == 0
+                              ? Text("Free", style: TextStyle(color: textColor))
+                              : RegularText(
+                                  text: formatCurrency(package.price),
+                                  fontSize: AppTextSize.md,
+                                  color: textColor,
+                                ),
                         ],
                       ),
                       SizedBox(height: AppSpacing.sm),
