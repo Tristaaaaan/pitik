@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
-import 'package:pitik/src/util/format_currency.dart';
 
 import '../../../../../core/design/design_tokens.dart';
+import '../../../../../util/format_currency.dart';
 import '../../../../package/presentation/widget/regular_text.dart';
 
 class SummaryRow extends StatelessWidget {
