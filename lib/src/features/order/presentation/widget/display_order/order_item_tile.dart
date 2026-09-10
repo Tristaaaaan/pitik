@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pitik/src/util/format_currency.dart';
 
 import '../../../../../core/design/design_tokens.dart';
 import '../../../../package/presentation/widget/regular_text.dart';
@@ -31,10 +32,7 @@ class OrderItemTile extends StatelessWidget {
           Expanded(
             child: RegularText(text: title, fontSize: AppTextSize.sm),
           ),
-          RegularText(
-            text: "₱${price.toStringAsFixed(0)}",
-            fontSize: AppTextSize.sm,
-          ),
+          RegularText(text: formatCurrency(price), fontSize: AppTextSize.sm),
           SizedBox(width: AppSpacing.sm),
           IconButton(
             icon: Icon(

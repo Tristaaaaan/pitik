@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pitik/src/util/format_currency.dart';
 
 import '../../../../../core/design/design_tokens.dart';
 import '../../../entities/package_entity.dart';
@@ -42,7 +43,6 @@ class PackageContainer extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
-                  // <-- add this
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -56,7 +56,7 @@ class PackageContainer extends StatelessWidget {
                           Spacer(),
                           Spacer(),
                           RegularText(
-                            text: "₱${package.price.toStringAsFixed(2)}",
+                            text: formatCurrency(package.price),
                             fontSize: AppTextSize.md,
                             color: textColor,
                           ),
