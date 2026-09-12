@@ -1,7 +1,8 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:pitik/src/core/error/failure.dart';
-import 'package:pitik/src/core/usecase/usecase.dart';
-import 'package:pitik/src/features/addons/domain/entity/addon_entity.dart';
+
+import '../../../../core/error/failure.dart';
+import '../../../../core/usecase/usecase.dart';
+import '../entity/addon_entity.dart';
 
 abstract class AddOnRepository {
   TaskEither<Failure, Unit> createAddOn(AddOnEntity addOn);

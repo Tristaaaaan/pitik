@@ -1,28 +1,31 @@
-import 'package:pitik/src/features/addons/data/datasource/local/addon_local_datasource.dart';
-import 'package:pitik/src/features/addons/data/model/addon_model.dart';
-import 'package:pitik/src/features/addons/domain/entity/addon_entity.dart';
-import 'package:pitik/src/features/addons/domain/repo/addon_repo.dart';
-
 import '../../../../core/error/fp.dart';
 import '../../../../core/usecase/usecase.dart';
+import '../../domain/repo/package_repo.dart';
+import '../../entities/package_entity.dart';
+import '../datasource/local/package_local_datasource.dart';
+import '../models/package_model.dart';
 
-class AddOnRepoImpl implements AddOnRepository {
-  final AddOnLocalDatasourceImpl addOnLocalDatasource;
+class PackageRepoImpl implements PackageRepository {
+  final PackageLocalDatasourceImpl packageLocalDatasource;
 
-  AddOnRepoImpl({required this.addOnLocalDatasource});
+  PackageRepoImpl({required this.packageLocalDatasource});
 
   @override
-  TaskEither<Failure, Unit> createAddOn(AddOnEntity addOn) {
+  TaskEither<Failure, Unit> createPackage(PackageEntity package) {
     return TaskEither.tryCatch(() async {
-      await addOnLocalDatasource.createAddOn(AddOnModel.fromEntity(addOn));
+      await packageLocalDatasource.createPackage(
+        PackageModel.fromEntity(package),
+      );
       return unit;
     }, (e, _) => CacheFailure(e.toString()));
   }
 
   @override
-  TaskEither<Failure, List<AddOnEntity>> readAddOn(ReadPackagesParams params) {
+  TaskEither<Failure, List<PackageEntity>> readPackage(
+    ReadPackagesParams params,
+  ) {
     return TaskEither.tryCatch(() async {
-      final result = await addOnLocalDatasource.readAddOns(
+      final result = await packageLocalDatasource.readPackages(
         params.offset,
         params.searchQuery,
       );
@@ -31,17 +34,9 @@ class AddOnRepoImpl implements AddOnRepository {
   }
 
   @override
-  TaskEither<Failure, Unit> updateAddOn(AddOnEntity addOn) {
+  TaskEither<Failure, Unit> deletePackage(String packageId) {
     return TaskEither.tryCatch(() async {
-      await addOnLocalDatasource.updateAddOn(AddOnModel.fromEntity(addOn));
-      return unit;
-    }, (e, _) => CacheFailure(e.toString()));
-  }
-
-  @override
-  TaskEither<Failure, Unit> deleteAddOn(String addOnId) {
-    return TaskEither.tryCatch(() async {
-      await addOnLocalDatasource.deleteAddOn(addOnId);
+      await packageLocalDatasource.deletePackage(packageId);
       return unit;
     }, (e, _) => CacheFailure(e.toString()));
   }

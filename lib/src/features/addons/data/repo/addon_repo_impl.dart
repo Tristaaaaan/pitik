@@ -1,10 +1,9 @@
-import 'package:pitik/src/features/addons/data/datasource/local/addon_local_datasource.dart';
-import 'package:pitik/src/features/addons/data/model/addon_model.dart';
-import 'package:pitik/src/features/addons/domain/entity/addon_entity.dart';
-import 'package:pitik/src/features/addons/domain/repo/addon_repo.dart';
-
 import '../../../../core/error/fp.dart';
 import '../../../../core/usecase/usecase.dart';
+import '../../domain/entity/addon_entity.dart';
+import '../../domain/repo/addon_repo.dart';
+import '../datasource/local/addon_local_datasource.dart';
+import '../model/addon_model.dart';
 
 class AddOnRepoImpl implements AddOnRepository {
   final AddOnLocalDatasourceImpl addOnLocalDatasource;

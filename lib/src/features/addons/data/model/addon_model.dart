@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:pitik/src/features/addons/domain/entity/addon_entity.dart';
+
+import '../../domain/entity/addon_entity.dart';
 
 part 'addon_model.freezed.dart';
 

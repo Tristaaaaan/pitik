@@ -1,13 +1,13 @@
 import 'dart:developer' as developer;
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pitik/src/common/state/read_state.dart';
-import 'package:pitik/src/features/addons/domain/entity/addon_entity.dart';
-import 'package:pitik/src/features/addons/domain/usecase/create_addon_usecase.dart';
-import 'package:pitik/src/features/addons/domain/usecase/delete_addon_usecase.dart';
-import 'package:pitik/src/features/addons/domain/usecase/read_addon_usecase.dart';
 
+import '../../../../common/state/read_state.dart';
 import '../../../../core/usecase/usecase.dart';
+import '../../domain/entity/addon_entity.dart';
+import '../../domain/usecase/create_addon_usecase.dart';
+import '../../domain/usecase/delete_addon_usecase.dart';
+import '../../domain/usecase/read_addon_usecase.dart';
 
 class AddOnCubit extends Cubit<ReadState> {
   final CreateAddOn createAddOnUseCase;
