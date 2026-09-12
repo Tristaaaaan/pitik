@@ -2,6 +2,14 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pitik/src/features/addons/data/datasource/local/addon_local_datasource.dart';
+import 'package:pitik/src/features/addons/data/repo/addon_repo_impl.dart';
+import 'package:pitik/src/features/addons/domain/usecase/create_addon_usecase.dart';
+import 'package:pitik/src/features/addons/domain/usecase/delete_addon_usecase.dart';
+import 'package:pitik/src/features/addons/domain/usecase/read_addon_usecase.dart';
+import 'package:pitik/src/features/addons/presentation/cubit/addon_cubit.dart';
+import 'package:pitik/src/features/addons/presentation/cubit/addon_selection_cubit.dart';
+import 'package:pitik/src/features/addons/presentation/cubit/create_addon_cubit.dart';
 import 'package:window_manager/window_manager.dart';
 
 import 'src/config/config.dart';
@@ -45,6 +53,22 @@ void main() async {
         BlocProvider(create: (_) => RegularButtonLoadingCubit()),
         BlocProvider(create: (_) => CreatePackageCubit()),
         BlocProvider(create: (_) => PackageSelectionCubit()),
+        BlocProvider(create: (_) => CreateAddOnCubit()),
+        BlocProvider(create: (_) => AddOnSelectionCubit()),
+        BlocProvider(
+          create: (_) => AddOnCubit(
+            createAddOnUseCase: CreateAddOn(
+              AddOnRepoImpl(addOnLocalDatasource: AddOnLocalDatasourceImpl()),
+            ),
+            readAddOnUseCase: ReadAddOn(
+              AddOnRepoImpl(addOnLocalDatasource: AddOnLocalDatasourceImpl()),
+            ),
+
+            deleteAddOnUseCase: DeleteAddOn(
+              AddOnRepoImpl(addOnLocalDatasource: AddOnLocalDatasourceImpl()),
+            ),
+          ),
+        ),
         BlocProvider(
           create: (_) => PackageCubit(
             createPackageUseCase: CreatePackage(
