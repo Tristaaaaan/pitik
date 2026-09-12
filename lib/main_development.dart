@@ -35,8 +35,6 @@ void main() async {
 
     const windowOptions = WindowOptions(
       minimumSize: Size(1080, 720),
-      maximumSize: Size(1080, 720),
-      size: Size(1080, 720),
       center: true,
     );
 
