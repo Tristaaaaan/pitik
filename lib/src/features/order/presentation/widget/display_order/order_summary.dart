@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 
 import '../../../../../core/design/design_tokens.dart';
+import '../../../../../util/format_currency.dart';
 import '../../../../package/presentation/widget/regular_text.dart';
 
 class SummaryRow extends StatelessWidget {
@@ -25,7 +26,7 @@ class SummaryRow extends StatelessWidget {
           fontSize: emphasize ? AppTextSize.md : AppTextSize.sm,
         ),
         RegularText(
-          text: "₱${value.toStringAsFixed(0)}",
+          text: formatCurrency(value),
           fontSize: emphasize ? AppTextSize.md : AppTextSize.sm,
         ),
       ],

@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/design/design_tokens.dart';
+import '../../../../../util/format_currency.dart';
 import '../../../entities/package_entity.dart';
 import '../../cubit/package_cubit.dart';
 import '../regular_text.dart';
+import 'package_inclusion.dart';
 import 'package_selection_cubit.dart';
 import 'package_selection_state.dart';
 
@@ -39,44 +41,84 @@ class PackageContainer extends StatelessWidget {
               ),
             ),
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    RegularText(
-                      text: "Package ${package.title}",
-                      fontSize: AppTextSize.md,
-                      color: textColor,
-                    ),
-                    SizedBox(height: AppSpacing.sm),
-                    RegularText(
-                      text: "What's included",
-                      fontSize: AppTextSize.sm,
-                      color: textColor,
-                    ),
-                    SizedBox(height: AppSpacing.sm),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.check,
-                          size: AppIconSize.md,
-                          color: textColor,
-                        ),
-                        SizedBox(width: AppSpacing.sm),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          RegularText(
+                            text: "Package ${package.title}",
+                            fontSize: AppTextSize.md,
+                            color: textColor,
+                          ),
+                          Spacer(),
+                          Spacer(),
+                          package.price == 0
+                              ? Text("Free", style: TextStyle(color: textColor))
+                              : RegularText(
+                                  text: formatCurrency(package.price),
+                                  fontSize: AppTextSize.md,
+                                  color: textColor,
+                                ),
+                        ],
+                      ),
+                      SizedBox(height: AppSpacing.sm),
+                      if (package.branding != null) ...[
                         RegularText(
-                          text: "15 minutes photo session",
+                          text: package.branding!,
                           fontSize: AppTextSize.sm,
                           color: textColor,
                         ),
+                        SizedBox(height: AppSpacing.sm),
                       ],
-                    ),
-                  ],
-                ),
-                Spacer(),
-                RegularText(
-                  text: "₱4,323",
-                  fontSize: AppTextSize.md,
-                  color: textColor,
+                      if (package.description != null) ...[
+                        RegularText(
+                          text: package.description!,
+                          fontSize: AppTextSize.sm,
+                          color: isSelected ? Colors.black : Colors.black,
+                        ),
+                        SizedBox(height: AppSpacing.sm),
+                      ],
+                      if (package.note != null) ...[
+                        Container(
+                          margin: const EdgeInsets.only(bottom: AppSpacing.sm),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Icon(
+                                Icons.info_outline,
+                                color: textColor,
+                                size: 20,
+                              ),
+                              SizedBox(width: AppSpacing.sm),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    RegularText(
+                                      text:
+                                          "AHAHH ahh hdahd hhk shdkshjk lore m dhsajkdhajks  hjkdsahdjk ahsjk dsahdjkshdjkshdjkshdjksdsd",
+                                      fontSize: 13,
+                                      color: isSelected
+                                          ? Colors.white
+                                          : Colors.black,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                      PackageInclusion(
+                        inclusions: package.inclusion,
+                        textColor: textColor,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),

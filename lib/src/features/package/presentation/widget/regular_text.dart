@@ -12,7 +12,6 @@ class RegularText extends StatelessWidget {
     this.fontWeight = FontWeight.w400,
     this.color = Colors.black,
   });
-
   @override
   Widget build(BuildContext context) {
     return Text(
