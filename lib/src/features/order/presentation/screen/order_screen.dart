@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/design/design_tokens.dart';
+import '../../../addons/presentation/cubit/addon_selection_cubit.dart';
+import '../../../addons/presentation/cubit/addon_selection_state.dart';
 import '../../../package/presentation/widget/regular_button.dart';
 import '../../../package/presentation/widget/regular_text.dart';
 import '../../../package/presentation/widget/select_package/package_selection_cubit.dart';
@@ -22,7 +24,6 @@ class OrderScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // --- Header ---
               RegularText(text: "Order Summary", fontSize: AppTextSize.lg),
               SizedBox(height: AppSpacing.xs),
               RegularText(
@@ -58,49 +59,28 @@ class OrderScreen extends StatelessWidget {
                       ),
                       SizedBox(height: AppSpacing.md),
 
-                      // // --- Add-ons Order Container ---
-                      // BlocBuilder<AddOnSelectionCubit, AddOnSelectionState>(
-                      //   builder: (context, state) {
-                      //     return OrderSectionContainer(
-                      //       title: "Add-ons",
-                      //       count: state.selectedAddOns.length,
-                      //       children: state.selectedAddOns.map((addOn) {
-                      //         return OrderItemTile(
-                      //           title: addOn.title,
-                      //           price: addOn.price,
-                      //           onRemove: () => context
-                      //               .read<AddOnSelectionCubit>()
-                      //               .toggleSelection(addOn),
-                      //         );
-                      //       }).toList(),
-                      //     );
-                      //   },
-                      // ),
-                      // SizedBox(height: AppSpacing.md),
-
-                      // // --- Order Details (subtotal, discount, total) ---
-                      // BlocBuilder<PackageSelectionCubit, PackageSelectionState>(
-                      //   builder: (context, packageState) {
-                      //     return BlocBuilder<AddOnSelectionCubit, AddOnSelectionState>(
-                      //       builder: (context, addOnState) {
-                      //         final packagesTotal = packageState.selectedPackages
-                      //             .fold<double>(0, (sum, p) => sum + p.price);
-                      //         final addOnsTotal = addOnState.selectedAddOns
-                      //             .fold<double>(0, (sum, a) => sum + a.price);
-                      //         final subtotal = packagesTotal + addOnsTotal;
-
-                      //         const double discount = 0;
-                      //         final total = subtotal - discount;
-
-                      //         return _OrderDetailsContainer(
-                      //           subtotal: subtotal,
-                      //           discount: discount,
-                      //           total: total,
-                      //         );
-                      //       },
-                      //     );
-                      //   },
-                      // ),
+                      // --- Add-ons Order Container (now live) ---
+                      BlocBuilder<AddOnSelectionCubit, AddOnSelectionState>(
+                        builder: (context, state) {
+                          final selected = state.selectedAddOns;
+                          return OrderSectionContainer(
+                            title: "Add-ons",
+                            count: selected.length,
+                            children: selected.map((entry) {
+                              final addOn = entry.key;
+                              final value = entry.value;
+                              return OrderItemTile(
+                                title: addOn.title ?? '',
+                                price: value.toDouble(),
+                                onRemove: () => context
+                                    .read<AddOnSelectionCubit>()
+                                    .setValue(addOn, 0),
+                              );
+                            }).toList(),
+                          );
+                        },
+                      ),
+                      SizedBox(height: AppSpacing.md),
                     ],
                   ),
                 ),
@@ -111,24 +91,34 @@ class OrderScreen extends StatelessWidget {
                 padding: EdgeInsets.all(AppSpacing.md),
                 child:
                     BlocBuilder<PackageSelectionCubit, PackageSelectionState>(
-                      builder: (context, state) {
-                        final subtotal = state.selectedPackages.fold<double>(
-                          0,
-                          (sum, p) => sum + p.price,
-                        );
+                      builder: (context, packageState) {
+                        return BlocBuilder<
+                          AddOnSelectionCubit,
+                          AddOnSelectionState
+                        >(
+                          builder: (context, addOnState) {
+                            final packagesTotal = packageState.selectedPackages
+                                .fold<double>(0, (sum, p) => sum + p.price);
+                            final addOnsTotal = addOnState.selectedAddOns
+                                .fold<double>(
+                                  0,
+                                  (sum, entry) => sum + entry.value,
+                                );
+                            final subtotal = packagesTotal + addOnsTotal;
 
-                        const double discount = 0;
-                        final total = subtotal - discount;
+                            const double discount = 0;
+                            final total = subtotal - discount;
 
-                        return OrderDetailsContainer(
-                          subtotal: subtotal,
-                          discount: discount,
-                          total: total,
+                            return OrderDetailsContainer(
+                              subtotal: subtotal,
+                              discount: discount,
+                              total: total,
+                            );
+                          },
                         );
                       },
                     ),
               ),
-              // --- Continue Transaction Button ---
               SizedBox(
                 width: double.infinity,
                 child: RegularButton(
