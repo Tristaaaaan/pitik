@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pitik/src/core/design/design_tokens.dart';
-import 'package:pitik/src/features/addons/domain/entity/addon_entity.dart';
-import 'package:pitik/src/features/addons/presentation/cubit/create_addon_state.dart';
-import 'package:pitik/src/features/addons/presentation/widget/create_addon/addon_basic_info_step.dart';
-import 'package:pitik/src/features/addons/presentation/widget/create_addon/addon_price_step.dart';
-import 'package:pitik/src/features/addons/presentation/widget/create_addon/addon_step_progress_indicator.dart';
-import 'package:pitik/src/features/addons/presentation/widget/create_addon/addon_unit_step.dart';
 
+import '../../../../../core/design/design_tokens.dart';
+import '../../../domain/entity/addon_entity.dart';
 import '../../cubit/create_addon_cubit.dart';
+import '../../cubit/create_addon_state.dart';
+import 'addon_basic_info_step.dart';
+import 'addon_price_step.dart';
+import 'addon_step_progress_indicator.dart';
+import 'addon_unit_step.dart';
 
 Future<AddOnEntity?> showCreateAddOnDialog(BuildContext context) {
   return showDialog<AddOnEntity>(

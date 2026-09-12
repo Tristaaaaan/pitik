@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pitik/src/features/addons/presentation/cubit/addon_selection_cubit.dart';
-import 'package:pitik/src/features/addons/presentation/cubit/addon_selection_state.dart';
 
 import '../../../../core/design/design_tokens.dart';
+import '../../../addons/presentation/cubit/addon_selection_cubit.dart';
+import '../../../addons/presentation/cubit/addon_selection_state.dart';
 import '../../../package/presentation/widget/regular_button.dart';
 import '../../../package/presentation/widget/regular_text.dart';
 import '../../../package/presentation/widget/select_package/package_selection_cubit.dart';

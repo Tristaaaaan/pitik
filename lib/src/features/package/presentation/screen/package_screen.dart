@@ -2,16 +2,16 @@ import 'dart:developer' as developer;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pitik/src/common/state/read_state.dart';
-import 'package:pitik/src/features/addons/presentation/cubit/addon_cubit.dart';
-import 'package:pitik/src/features/addons/presentation/widget/create_addon/create_addon_dialog.dart';
-import 'package:pitik/src/features/addons/presentation/widget/read_addon/addon_container.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../../../common/state/read_state.dart';
 import '../../../../common/widgets/item_loading.dart';
 import '../../../../common/widgets/place_holder.dart';
 import '../../../../core/animation/app_animations.dart';
 import '../../../../core/design/design_tokens.dart';
+import '../../../addons/presentation/cubit/addon_cubit.dart';
+import '../../../addons/presentation/widget/create_addon/create_addon_dialog.dart';
+import '../../../addons/presentation/widget/read_addon/addon_container.dart';
 import '../cubit/package_cubit.dart';
 import '../cubit/package_state.dart';
 import '../widget/create_package/create_package_dialog.dart';

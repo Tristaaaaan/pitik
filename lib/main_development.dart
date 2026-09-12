@@ -2,20 +2,20 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pitik/src/features/addons/data/datasource/local/addon_local_datasource.dart';
-import 'package:pitik/src/features/addons/data/repo/addon_repo_impl.dart';
-import 'package:pitik/src/features/addons/domain/usecase/create_addon_usecase.dart';
-import 'package:pitik/src/features/addons/domain/usecase/delete_addon_usecase.dart';
-import 'package:pitik/src/features/addons/domain/usecase/read_addon_usecase.dart';
-import 'package:pitik/src/features/addons/presentation/cubit/addon_cubit.dart';
-import 'package:pitik/src/features/addons/presentation/cubit/addon_selection_cubit.dart';
-import 'package:pitik/src/features/addons/presentation/cubit/create_addon_cubit.dart';
 import 'package:window_manager/window_manager.dart';
 
 import 'src/config/config.dart';
 import 'src/config/config_enum.dart';
 import 'src/core/route/app_routes.dart';
 import 'src/core/theme/themes.dart';
+import 'src/features/addons/data/datasource/local/addon_local_datasource.dart';
+import 'src/features/addons/data/repo/addon_repo_impl.dart';
+import 'src/features/addons/domain/usecase/create_addon_usecase.dart';
+import 'src/features/addons/domain/usecase/delete_addon_usecase.dart';
+import 'src/features/addons/domain/usecase/read_addon_usecase.dart';
+import 'src/features/addons/presentation/cubit/addon_cubit.dart';
+import 'src/features/addons/presentation/cubit/addon_selection_cubit.dart';
+import 'src/features/addons/presentation/cubit/create_addon_cubit.dart';
 import 'src/features/package/data/datasource/local/package_local_datasource.dart';
 import 'src/features/package/data/repo/package_repo_impl.dart';
 import 'src/features/package/domain/usecase/create_package_usecase.dart';

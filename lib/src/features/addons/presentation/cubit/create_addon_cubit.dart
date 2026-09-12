@@ -1,7 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pitik/src/features/addons/domain/entity/addon_entity.dart';
-import 'package:pitik/src/features/addons/presentation/cubit/create_addon_state.dart';
 import 'package:uuid/uuid.dart';
+
+import '../../domain/entity/addon_entity.dart';
+import 'create_addon_state.dart';
 
 class CreateAddOnCubit extends Cubit<CreateAddOnState> {
   CreateAddOnCubit() : super(const CreateAddOnState());

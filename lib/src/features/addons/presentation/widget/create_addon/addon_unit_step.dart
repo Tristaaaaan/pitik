@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pitik/src/features/addons/presentation/cubit/create_addon_cubit.dart';
-import 'package:pitik/src/features/addons/presentation/cubit/create_addon_state.dart';
+
+import '../../cubit/create_addon_cubit.dart';
+import '../../cubit/create_addon_state.dart';
 
 class AddOnUnitStep extends StatelessWidget {
   const AddOnUnitStep({super.key});

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pitik/src/features/addons/presentation/cubit/create_addon_state.dart';
+
+import '../../cubit/create_addon_state.dart';
 
 class AddOnStepProgressIndicator extends StatelessWidget {
   const AddOnStepProgressIndicator({super.key, required this.currentStep});
