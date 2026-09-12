@@ -6,6 +6,7 @@ import '../../../../../util/format_currency.dart';
 import '../../../entities/package_entity.dart';
 import '../../cubit/package_cubit.dart';
 import '../regular_text.dart';
+import 'package_inclusion.dart';
 import 'package_selection_cubit.dart';
 import 'package_selection_state.dart';
 
@@ -112,33 +113,9 @@ class PackageContainer extends StatelessWidget {
                           ),
                         ),
                       ],
-                      RegularText(
-                        text: "What's included",
-                        fontSize: AppTextSize.sm,
-                        color: textColor,
-                      ),
-                      SizedBox(height: AppSpacing.sm),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: package.inclusion.map((inclusion) {
-                          return Row(
-                            children: [
-                              Icon(
-                                Icons.check,
-                                size: AppIconSize.md,
-                                color: textColor,
-                              ),
-                              SizedBox(width: AppSpacing.sm),
-                              Expanded(
-                                child: RegularText(
-                                  text: inclusion,
-                                  fontSize: AppTextSize.sm,
-                                  color: textColor,
-                                ),
-                              ),
-                            ],
-                          );
-                        }).toList(),
+                      PackageInclusion(
+                        inclusions: package.inclusion,
+                        textColor: textColor,
                       ),
                     ],
                   ),

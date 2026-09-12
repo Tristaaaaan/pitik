@@ -1,4 +1,4 @@
-import 'dart:developer' as develoer;
+import 'dart:developer' as developer;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,9 +11,8 @@ import '../../../../core/design/design_tokens.dart';
 import '../cubit/package_cubit.dart';
 import '../cubit/package_state.dart';
 import '../widget/create_package/create_package_dialog.dart';
-import '../widget/regular_button.dart';
-import '../widget/regular_text.dart';
 import '../widget/select_package/package_container.dart';
+import '../widget/select_package/package_header.dart';
 
 class PackageScreen extends StatefulWidget {
   const PackageScreen({super.key});
@@ -30,36 +29,17 @@ class _PackageScreenState extends State<PackageScreen> {
         slivers: [
           SliverMainAxisGroup(
             slivers: [
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: Row(
-                    children: [
-                      RegularText(text: "Packages", fontSize: AppTextSize.xl),
-                      SizedBox(width: 25),
-                      RegularButton(
-                        onTap: () async {
-                          final newPackage = await showCreatePackageDialog(
-                            context,
-                          );
-                          develoer.log("newPackage: $newPackage");
+              PackageHeader(
+                title: "Package",
+                onTap: () async {
+                  final newPackage = await showCreatePackageDialog(context);
+                  developer.log("newPackage: $newPackage");
 
-                          if (newPackage != null) {
-                            if (!context.mounted) return;
-                            context.read<PackageCubit>().createPackage(
-                              newPackage,
-                            );
-                          }
-                        },
-                        text: "New",
-                        backgroundColor: Theme.of(context).colorScheme.primary,
-                        textColor: Theme.of(context).colorScheme.surface,
-                        buttonKey: "newPackage",
-                        width: 125,
-                      ),
-                    ],
-                  ),
-                ),
+                  if (newPackage != null) {
+                    if (!context.mounted) return;
+                    context.read<PackageCubit>().createPackage(newPackage);
+                  }
+                },
               ),
               BlocBuilder<PackageCubit, PackageState>(
                 builder: (context, state) {
@@ -166,28 +146,16 @@ class _PackageScreenState extends State<PackageScreen> {
                   );
                 },
               ),
-              BlocBuilder<PackageCubit, PackageState>(
-                builder: (context, state) {
-                  return state.maybeWhen(
-                    loaded: (data, hasMore) {
-                      if (!hasMore && data!.length > 5) {
-                        return SliverToBoxAdapter(
-                          child: Padding(
-                            padding: EdgeInsets.all(16),
-                            child: Center(
-                              child: RegularText(
-                                text: "nothing follows",
-                                fontSize: AppTextSize.md,
-                              ),
-                            ),
-                          ),
-                        );
-                      }
-                      return const SliverToBoxAdapter(child: SizedBox.shrink());
-                    },
-                    orElse: () =>
-                        const SliverToBoxAdapter(child: SizedBox.shrink()),
-                  );
+              PackageHeader(
+                title: "Add ons",
+                onTap: () async {
+                  final newPackage = await showCreatePackageDialog(context);
+                  developer.log("newPackage: $newPackage");
+
+                  if (newPackage != null) {
+                    if (!context.mounted) return;
+                    context.read<PackageCubit>().createPackage(newPackage);
+                  }
                 },
               ),
             ],
