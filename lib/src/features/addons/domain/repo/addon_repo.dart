@@ -5,7 +5,7 @@ import 'package:pitik/src/features/addons/domain/entity/addon_entity.dart';
 
 abstract class AddOnRepository {
   TaskEither<Failure, Unit> createAddOn(AddOnEntity addOn);
-  TaskEither<Failure, List<AddOnEntity>> readPackage(ReadPackagesParams params);
-  TaskEither<Failure, Unit> updatePackage(AddOnEntity addOn);
-  TaskEither<Failure, Unit> deletePackage(String packageId);
+  TaskEither<Failure, List<AddOnEntity>> readAddOn(ReadPackagesParams params);
+  TaskEither<Failure, Unit> updateAddOn(AddOnEntity addOn);
+  TaskEither<Failure, Unit> deleteAddOn(String packageId);
 }
